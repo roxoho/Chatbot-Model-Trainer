@@ -11,9 +11,10 @@ import zipfile
 # Download NLTK data
 from train import train_chatbot
 
-st.title("Chatbot Model Trainer")
+def main():
+    st.title("Chatbot Model Trainer")
 
-intents_placeholder = '''
+    intents_placeholder = '''
 {
   "intents": [
     {
@@ -30,33 +31,30 @@ intents_placeholder = '''
 }
 '''
 
-st.markdown("""
-Use ChatGPT or similar AI tools to generate intents for your desired topic, then paste the JSON here.
-Make sure to follow the structure shown in the placeholder.
-""")
+    st.markdown("""
+    Use ChatGPT or similar AI tools to generate intents for your desired topic, then paste the JSON here.
+    Make sure to follow the structure shown in the placeholder.
+    """)
 
-intents_input = st.text_area("Enter your intents JSON data:", value=intents_placeholder, height=300)
-learning_rate = st.number_input("Learning Rate", min_value=0.0001, max_value=0.1, value=0.01, step=0.0001, format="%.4f")
-epochs = st.number_input("Epochs", min_value=1, max_value=1000, value=300, step=1)
-batch_size = st.number_input("Batch Size", min_value=1, max_value=100, value=5, step=1)
+    intents_input = st.text_area("Enter your intents JSON data:", value=intents_placeholder, height=300)
+    learning_rate = st.number_input("Learning Rate", min_value=0.0001, max_value=0.1, value=0.01, step=0.0001, format="%.4f")
+    epochs = st.number_input("Epochs", min_value=1, max_value=1000, value=300, step=1)
+    batch_size = st.number_input("Batch Size", min_value=1, max_value=100, value=5, step=1)
 
-if st.button("Train Model"):
-    if intents_input:
-        try:
-            intents = json.loads(intents_input)
-            result = train_chatbot(intents, learning_rate, epochs, batch_size)
-            st.success(result)
-            
-            # Provide download buttons for trained files
-
-          # Provide download buttons for trained files
-            with zipfile.ZipFile('chatbot_files.zip', 'w') as zipf:
-                zipf.write('words.pkl')
-                zipf.write('classes.pkl')
-                zipf.write('chatbot_model.h5')
-                # Include chatbot.py file
+    if st.button("Train Model"):
+        if intents_input:
+            try:
+                intents = json.loads(intents_input)
+                result = train_chatbot(intents, learning_rate, epochs, batch_size)
+                st.success(result)
                 
-                chatbot_py = '''
+                # Provide download buttons for trained files
+                with zipfile.ZipFile('chatbot_files.zip', 'w') as zipf:
+                    zipf.write('words.pkl')
+                    zipf.write('classes.pkl')
+                    zipf.write('chatbot_model.h5')
+                    
+                    chatbot_py = '''
 #importing librarbies
 import random
 import json
@@ -145,49 +143,51 @@ while True:
    mes = input("")
    print(chatbot_response(mes))
 '''
-                with open('chatbot.py', 'w') as f:
-                    f.write(chatbot_py)
-                zipf.write('chatbot.py')
+                    with open('chatbot.py', 'w') as f:
+                        f.write(chatbot_py)
+                    zipf.write('chatbot.py')
 
-                requirements='''numpy
+                    requirements='''numpy
 tensorflow
 nltk
 flask
 keras'''
+                    with open('requirements.txt','w') as f:
+                        f.write(requirements)
+                    zipf.write('requirements.txt')
 
-                with open('requirements.txt','w') as f:
-                    f.write(requirements)
-                zipf.write('requirements.txt')
-                with open('intents.json', 'w') as f:
-                    f.write(intents_input )
-                zipf.write('intents.json')
+                    with open('intents.json', 'w') as f:
+                        f.write(intents_input )
+                    zipf.write('intents.json')
 
-            # Read the zip file into a byte stream
-            with open('chatbot_files.zip', 'rb') as f:
-               zip_bytes = f.read()
+                # Read the zip file into a byte stream
+                with open('chatbot_files.zip', 'rb') as f:
+                    zip_bytes = f.read()
 
-            st.download_button(
+                st.download_button(
                     label="Download chatbot_files.zip",
                     data=zip_bytes,
                     file_name='chatbot_files.zip',
-                    mime='application/zip')
+                    mime='application/zip'
+                )
 
-            
-        except json.JSONDecodeError:
-            st.error("Invalid JSON format. Please check your input.")
-    else:
-        st.warning("Please enter intents data before training the model.")
+            except json.JSONDecodeError:
+                st.error("Invalid JSON format. Please check your input.")
+        else:
+            st.warning("Please enter intents data before training the model.")
 
+    st.markdown("---")
 
-st.markdown("---")
+    st.markdown("""
+    Install the required libraries through "pip install -r requirements.txt".
+    Run the Chatbot.py file or comment the last 3 lines and use the functions in a web app or other(shown in the example video).
+    """)
 
-st.markdown("""
-Install the required libraries through "pip install -r requirements.txt".
-Run the Chatbot.py file or comment the last 3 lines and use the functions in a web app or other(shown in the example video).
-""")
+    st.markdown("---")
 
-st.markdown("---")
+    st.header("Example Video")
+    st.video("https://www.youtube.com/watch?v=your_video_id_here")
+    st.markdown("Replace 'your_video_id_here' with the actual YouTube video ID of your example video.")
 
-st.header("Example Video")
-st.video("https://www.youtube.com/watch?v=your_video_id_here")
-st.markdown("Replace 'your_video_id_here' with the actual YouTube video ID of your example video.")
+if __name__ == "__main__":
+    main()
