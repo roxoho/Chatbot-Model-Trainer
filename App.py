@@ -8,6 +8,7 @@ import nltk
 from nltk.stem import WordNetLemmatizer
 import zipfile
 from streamlit.components.v1 import html
+import streamlit.components.v1 as components
 
 
 # Download NLTK data
@@ -189,8 +190,8 @@ keras'''
     st.header("Example Video")
     st.video("https://youtu.be/mglqe-6gdGs")
     with open("google_analytics.html", "r") as f:
-       html_string = f.read()
-       html(html_string)
+       html_code = f.read()
+       components.html(html_code, height=0)
 
 if __name__ == "__main__":
     main()
