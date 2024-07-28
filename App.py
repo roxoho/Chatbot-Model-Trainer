@@ -189,9 +189,9 @@ keras'''
 
     st.header("Example Video")
     st.video("https://youtu.be/mglqe-6gdGs")
-    with open("google_analytics.html", "r") as f:
-       html_string = f.read()
-       html(html_string)
+    #with open("google_analytics.html", "r") as f:
+     #  html_string = f.read()
+     #  html(html_string)
 
 if __name__ == "__main__":
     main()
