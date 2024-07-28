@@ -186,8 +186,8 @@ keras'''
     st.markdown("---")
 
     st.header("Example Video")
-    st.video("https://www.youtube.com/watch?v=your_video_id_here")
-    st.markdown("Replace 'your_video_id_here' with the actual YouTube video ID of your example video.")
+    st.video("https://youtu.be/mglqe-6gdGs")
+    
 
 if __name__ == "__main__":
     main()
