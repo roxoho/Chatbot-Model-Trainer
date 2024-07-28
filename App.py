@@ -7,10 +7,11 @@ import tensorflow as tf
 import nltk
 from nltk.stem import WordNetLemmatizer
 import zipfile
+from streamlit.components.v1 import html
+
 
 # Download NLTK data
 from train import train_chatbot
-
 def main():
     st.title("Chatbot Model Trainer")
 
@@ -187,7 +188,9 @@ keras'''
 
     st.header("Example Video")
     st.video("https://youtu.be/mglqe-6gdGs")
-    
+    with open("google_analytics.html", "r") as f:
+       html_string = f.read()
+       html(html_string)
 
 if __name__ == "__main__":
     main()
