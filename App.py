@@ -16,6 +16,7 @@ from train import train_chatbot
 def main():
     
     st.markdown("[Click here to Join Waitlist for full Product](https://forms.gle/1KhVqnRgbUENS6RH8)")
+    st.markdown("---")
     st.title("Chatbot Model Trainer")
 
     intents_placeholder = '''
