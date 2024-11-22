@@ -7,5 +7,3 @@
 
 ### **Future Work:** Creating a full-fledged app for user login, data storage, model training, and chatbot component creation for external websites. The important aspect is the simplification for the user.
 
-### **Join Waitlist** and I will inform you, if I decide to continue to work on the full app in future
-### https://forms.gle/WR3GiJgMgWczUq7L9
