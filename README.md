@@ -5,5 +5,4 @@
 
 ### You can directly use the functions in a web app.
 
-### **Future Work:** Creating a full-fledged app for user login, data storage, model training, and chatbot component creation for external websites. The important aspect is the simplification for the user.
 
